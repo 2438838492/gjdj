@@ -1,32 +1,42 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+  <div class="app">
+    <div class="nav">
+      <router-link v-for="item in navData" :key="item.path" :to="item.path">{{
+        item.title
+      }}</router-link>
+    </div>
+    <keep-alive include="live">
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+export default {
+  data() {
+    return {
+      navData: [
+        { title: "计算属性", path: "/computed" },
+        { title: "监听器", path: "/watch" },
+        { title: "vue2-bug", path: "/vue2-bug" },
+        { title: "provide", path: "/provide-inject" },
+        { title: "keeplive", name: "keeplive", path: "/keeplive" },
+        { title: "$attrs", name: "live", path: "/$attrs" },
+      ],
+    };
+  },
+};
+</script>
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<style lang="scss" scoped>
+.app {
+  display: flex;
+  height: 100%;
+  .nav {
+    background: rgb(31, 237, 31);
+    width: 200px;
+    display: flex;
+    flex-direction: column;
   }
 }
 </style>
